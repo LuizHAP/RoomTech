@@ -1,0 +1,46 @@
+<!-- views/login.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>Smart House - Login</title>
+    <link rel="stylesheet" type="text/css" href="/css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="/css/stylelogin.css" />
+	<link rel="stylesheet" type="text/css" href="/css/animate-custom.css" />
+    <style>
+        body        { padding-top:80px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    
+    <section>				
+        <div id="container_demo" >
+            <div id="wrapper">
+                <div id="login" class="animate form">
+                    <form method="post" action="/login"> 
+                        <h1>Smart House - Login</h1> 
+                        <p> 
+                            <label for="username" class="uname" data-icon="u" > Seu usuario </label>
+                            <input id="username" name="username" required="required" type="text" placeholder="ex: admin"/>
+                        </p>
+                        <p> 
+                            <label for="password" class="youpasswd" data-icon="p"> Sua senha </label>
+                            <input id="password" name="password" required="required" type="password" placeholder="ex: X8df!90EO" /> 
+                        </p>
+                        <p class="login button"> 
+                            <input type="submit" value="Entrar" /> 
+                        </p>
+                        <p class="change_link">
+                            Ainda não tem cadastro?
+                            <a href="/register" class="to_register">Cadastrar</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+    
+</body>
+</html>

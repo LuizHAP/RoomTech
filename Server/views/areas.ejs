@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="Areas">
+    <head>
+        
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="img/favicon.ico">
+
+        <title>Smart House - Areas</title>
+        
+        <!-- jQuery -->
+        <script src="js/jquery.js"></script>
+        <script src="js/jquery-ui.js"></script>
+        
+        <link rel="stylesheet" href="css/jquery-ui.css">
+
+        <!-- Bootstrap Core CSS -->
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <script src="js/bootstrap.js"></script>
+        <link href="css/style.css" rel="stylesheet">
+        <script src="js/style.js"></script>
+        
+        <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="css/justified-nav.css" rel="stylesheet">
+        
+        <!-- Bootstrap Toggle -->
+        <link href="css/bootstrap-toggle.css" rel="stylesheet">
+        <script src="js/bootstrap-toggle.js"></script>
+        
+        <script src="js/notify.js"></script>
+        <!-- Custom Fonts
+        <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+        <script src="font-awesome/font.js"></script>
+
+        <script src="js/socket.io-1.4.5.js"></script> <!-- chamamos o socket.io que por padrão o socket.io cria a rota http sem precisarmos interferir-->
+        
+        <script src="js/angular.js"></script>
+        
+        <style>
+          #custom-handle {
+            width: 3em;
+            height: 1.6em;
+            top: 50%;
+            margin-top: -.8em;
+            text-align: center;
+            line-height: 1.6em;
+          }
+        .vertical-alignment-helper {
+            display:table;
+            height: 100%;
+            width: 100%;
+            pointer-events:none; /* This makes sure that we can still click outside of the modal to close it */
+        }
+        .vertical-align-center {
+            /* To center vertically */
+            display: table-cell;
+            vertical-align: middle;
+            pointer-events:none;
+        }
+        .modal-content {
+            /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+            width:inherit;
+            height:inherit;
+            /* To center horizontally */
+            margin: 0 auto;
+            pointer-events: all;
+        }
+        </style>
+    
+    </head>
+
+<body>
+
+    <div class="container">
+        
+        <div class="row">
+            <nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button> 
+                        <a class="navbar-brand" href="/home"><img src="img/logo.jpg"></a>
+                    </div>
+                    <div class="collapse navbar-collapse animated fadeIn" id="bs-example-navbar-collapse-1">
+                      <ul class="nav navbar-nav animated fadeIn text16">
+                        <li><a href="/home"><center><i class="fa fa-home"></i> Página Inicial</center></a></li>
+                        <li class="active"><a href="/areas"><center><i class="fa fa-wpforms"></i> Áreas</center></a></li>
+                        <li><a href="/alarme"><center><i class="fa fa-bell-o"></i> Alarme</center></a></li>
+                      </ul>
+                      <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/logout"><button type="button" class="btn btn-default btn-xs">SAIR</button></a></li>
+                      </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+        </div><br><br>
+        
+        <div class="row" ng-controller="AppCtrl">
+            <!-- Iluminação Interna -->
+
+            <div class="col-lg-8"><br>
+                <div class="panel panel-grey">
+                    <div class="panel-heading">
+                        <center><h4 class="panel-title">
+                            <a data-toggle="collapse" href="#collapse1">Iluminação Interna</a>
+                        </h4></center>
+                    </div>
+                    <div class="panel-body">
+
+                        <div id="collapse1" class="panel-collapse collapse in">
+                        <!-- Sala Iluminação -->
+
+                            <div class="col-lg-3">
+                                <div class="panel panel-gold">
+                                    <div class="panel-heading">
+                                        <center><h5>Sala</h5></center>
+                                    </div>
+                                    <div class="panel-body">
+                                        <center><input id="SALALAMP" type="checkbox" data-toggle="toggle" data-onstyle="success" data-offstyle="danger"></center>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <!-- /Sala Iluminação -->
+
+                        <!-- Cozinha Iluminação -->
+
+                            <div class="col-lg-3">
+                                <div class="panel panel-gold">
+                                    <div class="panel-heading">
+                                        <center><h5>Cozinha</h5></center>
+                                    </div>
+                                    <div class="panel-body">
+                                        <center><input id="COZILAMP" type="checkbox" data-toggle="toggle" data-onstyle="success" data-offstyle="danger"></center>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <!-- /Cozinha Iluminação -->
+                            
+                        <!-- Quarto 1 Iluminação -->
+
+                            <div class="col-lg-3">
+                                <div class="panel panel-gold">
+                                    <div class="panel-heading">
+                                        <center><h5>Quarto 1</h5></center>
+                                    </div>
+                                    <div class="panel-body">
+                                        <center><input id="QTD1LAMP" type="checkbox" data-toggle="toggle" data-onstyle="success" data-offstyle="danger"></center>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <!-- /Quarto 1 Iluminação -->
+
+                        <!-- Quarto 2 Iluminação -->
+
+                            <div class="col-lg-3">
+                                <div class="panel panel-gold">
+                                    <div class="panel-heading">
+                                        <center><h5>Quarto 2</h5></center>
+                                    </div>
+                                    <div class="panel-body">
+                                        <center><input id="QTD2LAMP" type="checkbox" data-toggle="toggle" data-onstyle="success" data-offstyle="danger"></center>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <!-- /Quarto 2 Iluminação -->
+
+                            
+                        </div>            
+                    </div>
+                </div>
+            </div>
+
+            <!-- /Iluminação Interna -->
+            <!-- Ventiladores -->
+
+            <div class="col-lg-4"><br>
+                <div class="panel panel-grey">
+                    <div class="panel-heading">
+                        <center><h4 class="panel-title">
+                            <a data-toggle="collapse" href="#collapse2">Ventilador</a>
+                        </h4></center>
+                    </div>
+                    <div class="panel-body">
+                        <div id="collapse2" class="panel-collapse collapse in">
+                            
+                            <div class="col-lg-12">
+                                <div class="panel panel-gold">
+                                    <div class="panel-heading">
+                                        <center><h5>Quarto 1</h5></center>
+                                    </div>
+                                    <div class="panel-body">
+                                        <center><input id="VENTIL" type="checkbox" data-toggle="toggle" data-onstyle="success" data-offstyle="danger"></center>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- /Ventiladores -->
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8"><br>
+                <div class="panel panel-grey">
+                    <div class="panel-heading">
+                        <center><h4 class="panel-title">
+                            <a data-toggle="collapse" href="#collapse3">Iluminação Externa</a>
+                        </h4></center>
+                    </div>
+                    <div class="panel-body">
+                        
+                        <div id="collapse3" class="panel-collapse collapse in">
+                        <!-- Entrada Iluminação -->
+
+                            <div class="col-md-4 col-sm-4">
+                                <div class="panel panel-gold">
+                                    <div class="panel-heading">
+                                        <center><h5>Varanda</h5></center>
+                                    </div>
+                                    <div class="panel-body">
+                                        <center><input id="VARANDAC" type="checkbox" data-toggle="toggle" data-onstyle="success" data-offstyle="danger"></center>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <!-- /Entrada Iluminação -->
+
+                        <!-- Perimetro da Casa -->
+
+                            <div class="col-md-4 col-sm-4">
+                                <div class="panel panel-gold">
+                                    <div class="panel-heading">
+                                        <center><h5>Postes</h5></center>
+                                    </div>
+                                    <div class="panel-body">
+                                        <center><input id="AREAEXTE" type="checkbox" data-toggle="toggle" data-onstyle="success" data-offstyle="danger"></center>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <!-- /Perimetro da Casa Iluminação -->
+                            
+                        <!-- Perimetro da Casa -->
+
+                            <div class="col-md-4 col-sm-4">
+                                <div class="panel panel-gold">
+                                    <div class="panel-heading">
+                                        <center><h5>Jardim Frente</h5></center>
+                                    </div>
+                                    <div class="panel-body">
+                                        <center><input id="JARDIMEXT" type="checkbox" data-toggle="toggle" data-onstyle="success" data-offstyle="danger"></center>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <!-- /Perimetro da Casa Iluminação -->
+                        
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4"><br>
+                <div class="panel panel-grey">
+                    <div class="panel-heading">
+                        <center><h4 class="panel-title">
+                            <a data-toggle="collapse" href="#collapse4">Portões</a>
+                        </h4></center>
+                    </div>
+                    <div class="panel-body">
+
+                        <div id="collapse4" class="panel-collapse collapse in">
+                        <!-- Quarto 1 Ventilador -->
+
+                            <div class="col-lg-6">
+                                <div class="panel panel-gold">
+                                    <div class="panel-heading">
+                                        <center><h5>Social</h5></center>
+                                    </div>
+                                    <div class="panel-body">
+                                        <center><input id="PORTSOCI" type="checkbox" data-toggle="toggle" data-onstyle="success" data-offstyle="danger"></center>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <!-- /Quarto 1 Ventilador -->
+
+                        <!-- Quarto 2 Ventilador -->
+
+                            <div class="col-lg-6">
+                                <div class="panel panel-gold">
+                                    <div class="panel-heading">
+                                        <center><h5>Carro</h5></center>
+                                    </div>
+                                    <div class="panel-body">
+                                        <center><input id="PORTCARR" type="checkbox" data-toggle="toggle" data-onstyle="success" data-offstyle="danger"></center>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <!-- /Quarto 2 Ventilador --> 
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+            <div class="vertical-alignment-helper">
+                <div class="modal-dialog vertical-align-center">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <h2><center><i class="fa fa-refresh fa-spin"></i> Sincronizando</center></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Funções Socket I.O -->
+    <script src="js/EnviaStatus.js"></script>
+    <script src="js/AcionaManual.js"></script>
+    
+    <script src="js/controllers/controllers.js"></script>
+    
+    <script>
+      $(function() {
+        var handle = $( "#custom-handle" );
+        $("#slider").slider({
+          create: function() {
+            handle.text($(this).slider("value"));
+          },
+          slide: function(event, ui){
+            handle.text(ui.value);
+          },
+          animate: "fast",
+          step: 10
+        });
+      });
+    </script>
+    
+    <script>
+        $(document).ready(function() {
+            $('#Modal').modal({
+              backdrop: 'static',
+              keyboard: true,
+              show: true
+            })
+        });
+    </script>
+</body>
+</html>

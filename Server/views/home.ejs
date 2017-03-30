@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="img/favicon.ico">
+
+        <title>Smart House - Home</title>
+        
+        <!-- jQuery -->
+        <script src="js/jquery.js"></script>
+
+        <!-- Bootstrap Core CSS -->
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <script src="js/bootstrap.js"></script>
+        <link href="css/style.css" rel="stylesheet">
+        <script src="js/style.js"></script>
+        <link rel="stylesheet" href="css/weather-icons.css">
+        
+        <!-- Custom CSS -->
+        <link href="css/sb-admin-2.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="css/justified-nav.css" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <script src="font-awesome/font.js"></script>
+
+        <script src="js/socket.io-1.4.5.js"></script> <!-- chamamos o socket.io que por padrão o socket.io cria a rota http sem precisarmos interferir-->
+
+        <!-- noUISlider -->
+        <link href="css/nouislider.css" rel="stylesheet">
+        <script src="js/nouislider.js"></script>
+        
+        <script src="js/angular.js"></script>
+
+    </head>
+<body ng-app="Home">
+      
+
+    <div class="container">
+        <div class="row">
+            <nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>    
+                        <a class="navbar-brand center-block" href="/home"><img src="img/logo.jpg"></a>
+                    </div>
+                    <div class="collapse navbar-collapse animated fadeIn" id="bs-example-navbar-collapse-1">
+                      <ul class="nav navbar-nav animated fadeIn text16">
+                          <li class="active"><a href="/home"><center><i class="fa fa-home"></i> Página Inicial</center></a></li>
+                            <li><a href="/areas"><center><i class="fa fa-wpforms"></i> Áreas</center></a></li>
+                            <li><a href="/alarme"><center><i class="fa fa-bell-o"></i> Alarme</center></a></li>
+                      </ul>
+                      <ul class="nav navbar-nav navbar-right">
+                         <li><a href="/logout"><button type="button" class="btn btn-default btn-xs"><center>SAIR</center></button></a></li> 
+                      </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+        </div>
+     
+        <div class="row">
+            <img src="img/logofundo.png" class="img-responsive center-block" alt="Imagem Responsiva">
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="huge"><i class="wi wi-thermometer"></i></div>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge"><div ng-controller="RecebTemp">{{TempAtual}}</div></div>
+                                <div>Temperatura Ambiente</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <a href="#">
+                        <div class="panel-footer">
+                            <span class="pull-left">Relatórios de Temperatura</span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a> -->
+                </div>
+            </div>
+            
+            <div class="col-lg-3">
+                <div class="panel panel-grey">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="huge"><i class="wi wi-humidity"></i></div>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge"><div ng-controller="RecebUmid">
+                                {{UmidAtual}}</div></div>
+                                <div>Umidade do Ambiente</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<a href="#">
+                        <div class="panel-footer">
+                            <span class="pull-left">Relatórios de Umidade</span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a> -->
+                </div> 
+            </div>
+            
+        </div>
+
+    </div> <!-- /container -->
+    
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    
+    <script>
+        var app = angular.module('Home',[]);
+        app.controller('RecebTemp', function($scope, $http, $interval) {
+            $scope.TempAtual = [];
+
+            $interval(function(){
+                var request = $http.get('/Temperatura');    
+                request.success(function(data) {
+                    $scope.TempAtual = data + " ºC";
+                })
+                .error(function(data){
+                    console.log('Error: ' + data);
+                });
+            }, 500); 
+
+            /* O segundo parâmetro "5000", diz que a função deve ser repetida a cada 
+               5000 milisegundos (5 segundos) */
+        });
+        
+        app.controller('RecebUmid', function($scope, $http, $interval) {
+            $scope.UmidAtual = [];
+
+            $interval(function(){
+                var request = $http.get('/Umidade');    
+                request.success(function(data2) {
+                    $scope.UmidAtual = data2 + " %";
+                })
+                .error(function(data2){
+                    console.log('Error: ' + data2);
+                });
+            }, 500); 
+
+            /* O segundo parâmetro "5000", diz que a função deve ser repetida a cada 
+               5000 milisegundos (5 segundos) */
+        });
+    </script>
+    
+</body>
+</html>

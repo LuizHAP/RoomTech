@@ -1,0 +1,55 @@
+<!-- views/signup.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>Smart House - Registro</title>
+    <link rel="stylesheet" type="text/css" href="/css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="/css/stylelogin.css" />
+	<link rel="stylesheet" type="text/css" href="/css/animate-custom.css" />
+    <style>
+        body        { padding-top:80px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <section>				
+        <div id="container_demo" >
+            <div id="wrapper">
+                <div id="login" class="animate form">
+                    <form method="post" action="/register"> 
+                        <h1>Smart House - Cadastro</h1>
+                            <p> 
+                                <label for="name" class="uname" data-icon="u">Nome</label>
+                                <input id="name" name="name" required="required" type="text" placeholder="meu super usuario" />
+                            </p>
+                            <p> 
+                                <label for="usernamesignup" class="uname" data-icon="u">Usuario</label>
+                                <input id="usernamesignup" name="username" required="required" type="text" placeholder="meu super usuario" />
+                            </p>
+                            <p> 
+                                <label for="emailsignup" class="youmail" data-icon="e">Email</label>
+                                <input id="emailsignup" name="email" required="required" type="email" placeholder="meu super email"/> 
+                            </p>
+                            <p> 
+                                <label for="passwordsignup" class="youpasswd" data-icon="p">Senha</label>
+                                <input id="passwordsignup" name="password" required="required" type="password" placeholder="ex: X8df!90EO"/>
+                            </p>
+                            <p> 
+                                <label for="passwordsignup_confirm" class="youpasswd" data-icon="p">Por favor, confirme sua senha </label>
+                                <input id="passwordsignup_confirm" name="password2" required="required" type="password" placeholder="ex: X8df!90EO"/>
+                            </p>
+                            <p class="signin button"> 
+                                <input type="submit" value="Cadastrar"/> 
+                            </p>
+                            <p class="change_link">  
+                                Você já tem conta?
+                                <a href="/" class="to_register">Entrar </a>
+                            </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>
